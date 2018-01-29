@@ -18,6 +18,6 @@
   </dependencies>
   
   <build>
-    <finalName>sirh-gestion-personnel</finalName>
+    <finalName>sgp</finalName>
   </build>
 </project>
