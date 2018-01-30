@@ -13,6 +13,9 @@ import dev.sgp.util.Constantes;
 
 public class CreerCollaborateurController extends HttpServlet {
 
+	/** serialVersionUID (long) */
+	private static final long serialVersionUID = 4545174928265638678L;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -22,6 +25,7 @@ public class CreerCollaborateurController extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		req.getRequestDispatcher("/WEB-INF/views/collab/creerCollaborateur.jsp").forward(req, resp);
 	}
 
@@ -43,21 +47,18 @@ public class CreerCollaborateurController extends HttpServlet {
 
 		// verification parametres
 		if (nom.isEmpty() || prenom.isEmpty() || strDate.isEmpty() || adresse.isEmpty() || secu.isEmpty()) {
-			resp.sendError(400, "Les paramètres suivants sont incorrects : " 
-					+ (nom.isEmpty() ? "nom " : "")
-					+ (prenom.isEmpty() ? "prenom " : "")
-					+ (strDate.isEmpty() ? "date " : "")
-					+ (adresse.isEmpty() ? "adresse " : "")
-					+ (secu.isEmpty() ? "secu " : ""));
+			resp.sendError(400,
+					"Les paramètres suivants sont incorrects : " + (nom.isEmpty() ? "nom " : "")
+							+ (prenom.isEmpty() ? "prenom " : "") + (strDate.isEmpty() ? "date " : "")
+							+ (adresse.isEmpty() ? "adresse " : "") + (secu.isEmpty() ? "secu " : ""));
 		} else {
 			resp.setStatus(201);
+
 			LocalDate dateDeNaissance = LocalDate.parse(strDate);
 			Collaborateur newCollab = new Collaborateur(nom, prenom, dateDeNaissance, adresse, secu);
 			Constantes.COLLAB_SERVICE.sauvegarderCollaborateur(newCollab);
-			
-			req.setAttribute("listCollabs", Constantes.COLLAB_SERVICE.listerCollaborateurs());
-			
-			req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp").forward(req, resp);
+
+			resp.sendRedirect("./lister");
 		}
 	}
 

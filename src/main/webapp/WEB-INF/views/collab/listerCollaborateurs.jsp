@@ -90,15 +90,23 @@
 	<section class="ml-5 mr-5 mt-5">
 		<div class="row">
 			<%
-				List<Collaborateur> collabs = (List<Collaborateur>) request.getAttribute("listCollabs");
-				if (collabs == null || collabs.isEmpty()) {
+				Object oCollabs = request.getAttribute("listCollabs");
+				if (oCollabs == null) {
 			%>
 			<div>
 				<p>Aucun collaborateur à afficher</p>
 			</div>
 			<%
 				} else {
-					for (Collaborateur collab : collabs) {
+					List<Collaborateur> collabs = (List<Collaborateur>) oCollabs;
+					if (collabs.isEmpty()) {
+			%>
+			<div>
+				<p>Aucun collaborateur à afficher</p>
+			</div>
+			<%
+				} else {
+						for (Collaborateur collab : collabs) {
 			%>
 			<div class="col-xl-4 mb-5">
 				<div class="card">
@@ -114,11 +122,11 @@
 							<div class="col">
 								<div class="row">
 									<div class="col">Fonction</div>
-									<div class="col">xxxxxx</div>
+									<div class="col"><%=collab.getIntitulePoste()%></div>
 								</div>
 								<div class="row">
 									<div class="col">Département</div>
-									<div class="col">xxxxxx</div>
+									<div class="col"><%=collab.getDepartement().getNom()%></div>
 								</div>
 								<div class="row">
 									<div class="col">Email</div>
@@ -128,14 +136,14 @@
 								</div>
 								<div class="row">
 									<div class="col">Téléphone</div>
-									<div class="col">xxxxxx</div>
+									<div class="col"><%=collab.getTelephone()%></div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="card-footer">
 						<div class="float-sm-right">
-							<a href="./editer-collab.html" class="btn btn-basic"
+							<a href="#" class="btn btn-basic"
 								role="button">Editer</a>
 						</div>
 					</div>
@@ -143,6 +151,7 @@
 			</div>
 			<%
 				}
+					}
 				}
 			%>
 		</div>

@@ -3,12 +3,19 @@ package dev.sgp.entite;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import dev.sgp.util.Constantes;
 
+@Entity
 public class Collaborateur {
 
-	private static int currentMatricule = 0;
-
+	@Id
+	@GeneratedValue
+	private Integer id;
 	private String matricule;
 	private String nom;
 	private String prenom;
@@ -19,6 +26,17 @@ public class Collaborateur {
 	private String photo;
 	private ZonedDateTime dateHeureCreation;
 	private boolean actif;
+	private String intitulePoste;
+	@ManyToOne
+	private Departement departement;
+	private String telephone;
+
+	/**
+	 * 
+	 */
+	public Collaborateur() {
+		super();
+	}
 
 	/**
 	 * @param matricule
@@ -34,7 +52,7 @@ public class Collaborateur {
 	public Collaborateur(String nom, String prenom, LocalDate dateDeNaissance, String adresse,
 			String numeroDeSecuriteSociale) {
 		super();
-		matricule = "M" + (currentMatricule++);
+		matricule = "M" + id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateDeNaissance = dateDeNaissance;
@@ -44,6 +62,9 @@ public class Collaborateur {
 		photo = Constantes.DEFAULT_AVATAR;
 		dateHeureCreation = ZonedDateTime.now();
 		actif = true;
+		intitulePoste = "non renseigné";
+		departement = Constantes.DEPART_SERVICE.getDepByKey(0);
+		telephone = "non renseigné";
 	}
 
 	/**
@@ -207,7 +228,16 @@ public class Collaborateur {
 		return dateHeureCreation;
 	}
 
-	// pas de setter pour dateHeureCreation
+	/**
+	 * Setter for the dateHeureCreation
+	 * 
+	 * @param dateHeureCreation
+	 *            the dateHeureCreation to set
+	 */
+	public void setDateHeureCreation(ZonedDateTime dateHeureCreation) {
+		this.dateHeureCreation = dateHeureCreation;
+	}
+
 	/**
 	 * Getter for the actif
 	 * 
@@ -225,6 +255,63 @@ public class Collaborateur {
 	 */
 	public void setActif(boolean actif) {
 		this.actif = actif;
+	}
+
+	/**
+	 * Getter for the intitulePoste
+	 * 
+	 * @return the intitulePoste
+	 */
+	public String getIntitulePoste() {
+		return intitulePoste;
+	}
+
+	/**
+	 * Setter for the intitulePoste
+	 * 
+	 * @param intitulePoste
+	 *            the intitulePoste to set
+	 */
+	public void setIntitulePoste(String intitulePoste) {
+		this.intitulePoste = intitulePoste;
+	}
+
+	/**
+	 * Getter for the departement
+	 * 
+	 * @return the departement
+	 */
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	/**
+	 * Setter for the departement
+	 * 
+	 * @param departement
+	 *            the departement to set
+	 */
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
+	/**
+	 * Getter for the telephone
+	 * 
+	 * @return the telephone
+	 */
+	public String getTelephone() {
+		return telephone;
+	}
+
+	/**
+	 * Setter for the telephone
+	 * 
+	 * @param telephone
+	 *            the telephone to set
+	 */
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 }
