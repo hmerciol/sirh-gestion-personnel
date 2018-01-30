@@ -1,4 +1,5 @@
 <%@page import="dev.sgp.entite.Collaborateur"%>
+<%@page import="dev.sgp.entite.Departement"%>
 <%@page import="java.util.List"%>
 <%@page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -77,9 +78,19 @@
 				<div class="col-xl-2">
 					<select class="form-control" id="departementFilter">
 						<option>Tous</option>
-						<option>Comptabilité</option>
-						<option>Ressources Humaines</option>
-						<option>Informatique</option>
+						<%
+							Object oDeps = request.getAttribute("listDeps");
+							if (oDeps != null) {
+								List<Departement> deps = (List<Departement>) oDeps;
+								if (!(deps.isEmpty())) {
+									for (Departement dep : deps) {
+						%>
+						<option><%=dep.getNom()%></option>
+						<%
+							}
+								}
+							}
+						%>
 					</select>
 				</div>
 			</div>
@@ -143,8 +154,10 @@
 					</div>
 					<div class="card-footer">
 						<div class="float-sm-right">
-							<a href="#" class="btn btn-basic"
-								role="button">Editer</a>
+							<form method="get" action="./editer">
+								<input type="hidden" name="matricule" value="<%=collab.getMatricule() %>">
+								<button type="submit" class="btn btn-basic">Editer</button>
+							</form>
 						</div>
 					</div>
 				</div>

@@ -56,6 +56,7 @@ public class CreerCollaborateurController extends HttpServlet {
 
 			LocalDate dateDeNaissance = LocalDate.parse(strDate);
 			Collaborateur newCollab = new Collaborateur(nom, prenom, dateDeNaissance, adresse, secu);
+			newCollab.setMatricule("M" + newCollab.getId());
 			Constantes.COLLAB_SERVICE.sauvegarderCollaborateur(newCollab);
 
 			resp.sendRedirect("./lister");

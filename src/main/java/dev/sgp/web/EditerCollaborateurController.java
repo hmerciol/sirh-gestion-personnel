@@ -7,7 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dev.sgp.entite.Collaborateur;
+import dev.sgp.util.Constantes;
+
 public class EditerCollaborateurController extends HttpServlet {
+
+	/** serialVersionUID (long) */
+	private static final long serialVersionUID = -2624817299853340666L;
 
 	/*
 	 * (non-Javadoc)
@@ -25,7 +31,9 @@ public class EditerCollaborateurController extends HttpServlet {
 		if (matricule == null) {
 			resp.sendError(400, "Un matricule est attendu");
 		} else {
-			resp.getWriter().write("<h1>Edition de collaborateur</h1>" + "<h2>Matricule : " + matricule + "</h2>");
+			Collaborateur collab = Constantes.COLLAB_SERVICE.getCollabByMat(matricule);
+			req.setAttribute("collab", collab);
+			req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp").forward(req, resp);
 		}
 	}
 
@@ -38,6 +46,9 @@ public class EditerCollaborateurController extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		//TODO !!
+		
 		// recupere la valeur des parametres
 		String matricule = req.getParameter("matricule");
 		String titre = req.getParameter("titre");

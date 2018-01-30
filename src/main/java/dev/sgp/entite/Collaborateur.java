@@ -68,6 +68,22 @@ public class Collaborateur {
 	}
 
 	/**
+	 * Getter for the id
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * Setter for the id
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	/**
 	 * Getter for the matricule
 	 * 
 	 * @return the matricule

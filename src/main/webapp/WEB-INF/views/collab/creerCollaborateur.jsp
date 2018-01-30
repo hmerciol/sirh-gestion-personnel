@@ -107,7 +107,7 @@
 	</form>
 
 	<!-- fenêtre modale -->
-	<div class="modal fade" id="adding" tabindex="-1" role="dialog"
+	<!-- <div class="modal fade" id="adding" tabindex="-1" role="dialog"
 		aria-labelledby="addingLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -145,7 +145,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </body>
 
 <!-- scripts du validateur -->
