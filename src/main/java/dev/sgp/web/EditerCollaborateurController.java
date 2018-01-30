@@ -46,13 +46,11 @@ public class EditerCollaborateurController extends HttpServlet {
 
 		// code HTML ecrit dans le corps de la reponse
 		if (matricule == null || titre == null || nom == null || prenom == null) {
-			resp.getWriter().write("<p>Les param&egrave;tres suivants sont incorrects : " 
+			resp.sendError(400,	"Les param&egrave;tres suivants sont incorrects : " 
 					+ (matricule == null ? "matricule " : "")
 					+ (titre == null ? "titre " : "") 
 					+ (nom == null ? "nom " : "")
-					+ (prenom == null ? "prenom " : "")
-					+ "</p>");
-			resp.setStatus(400);
+					+ (prenom == null ? "prenom " : ""));
 		} else {
 			resp.getWriter().write("<p>Cr&eacute;ation d'un collaborateur avec les informations suivantes :<br/>"
 					+ "matricule=" + matricule + ",titre=" + titre + ",nom=" + nom + ",prenom=" + prenom + "</p>");
