@@ -1,6 +1,7 @@
 package dev.sgp.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dev.sgp.entite.Collaborateur;
+import dev.sgp.entite.Departement;
 import dev.sgp.util.Constantes;
 
 public class EditerCollaborateurController extends HttpServlet {
@@ -32,7 +34,9 @@ public class EditerCollaborateurController extends HttpServlet {
 			resp.sendError(400, "Un matricule est attendu");
 		} else {
 			Collaborateur collab = Constantes.COLLAB_SERVICE.getCollabByMat(matricule);
+			List<Departement> departements = Constantes.DEPART_SERVICE.listerDepartements();
 			req.setAttribute("collab", collab);
+			req.setAttribute("listDeps", departements);
 			req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp").forward(req, resp);
 		}
 	}

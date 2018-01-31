@@ -1,4 +1,6 @@
 <%@page import="dev.sgp.entite.Collaborateur"%>
+<%@page import="dev.sgp.entite.Departement"%>
+<%@page import="java.util.List"%>
 <%@page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="fr">
@@ -52,11 +54,11 @@
 					-
 					<%=collab.getMatricule()%></h1>
 				<div class="col-lg-2 ml-1">
-					<div class="form-check float-sm-right">
-						<input class="form-check-input" type="checkbox" value=""
-							id="inactive"> <label class="form-check-label"
-							for="inactive">Désactiver</label>
-					</div>
+					<form class="float-sm-right">
+						<input class="form-check-input" type="checkbox" name="inactive"
+							<%if (!collab.isActif()) {%> checked <%}%>> <label
+							class="form-check-label" for="inactive">Désactiver</label>
+					</form>
 				</div>
 			</div>
 
@@ -81,7 +83,6 @@
 										</div>
 										<div class="col-6">
 											<select class="form-control" name="gender">
-												<option class="is-invalid"></option>
 												<option>M.</option>
 												<option>Mme.</option>
 											</select>
@@ -128,7 +129,7 @@
 										</div>
 										<div class="col-6">
 											<textarea class="form-control" rows="4" name="location"
-												value="<%=collab.getAdresse()%>" required></textarea>
+												required><%=collab.getAdresse()%></textarea>
 											<div class="invalid-feedback">L'adresse est
 												obligatoire.</div>
 										</div>
@@ -178,11 +179,22 @@
 											<label class="float-right" for="stationLocation">Département</label>
 										</div>
 										<div class="col-6">
-											<select class="form-control" id="stationLocation">
-												<option class="is-invalid"></option>
-												<option>Comptabilité</option>
-												<option>Ressources Humaines</option>
-												<option>Informatique</option>
+											<select class="form-control" name="stationLocation">
+												<%
+													Object oDeps = request.getAttribute("listDeps");
+														if (oDeps != null) {
+															List<Departement> deps = (List<Departement>) oDeps;
+															if (!(deps.isEmpty())) {
+																for (Departement dep : deps) {
+												%>
+												<option
+													<%if (collab.getDepartement().getId() == dep.getId()) {%>
+													selected <%}%>><%=dep.getNom()%></option>
+												<%
+													}
+															}
+														}
+												%>
 											</select>
 											<div class="invalid-feedback">Le département du poste
 												est obligatoire.</div>
@@ -193,8 +205,8 @@
 											<label class="float-right" for="staionName">Nom</label>
 										</div>
 										<div class="col-6">
-											<input type="text" class="form-control" id="stationName"
-												required>
+											<input type="text" class="form-control" name="stationName"
+												value="<%=collab.getIntitulePoste()%>" required>
 											<div class="invalid-feedback">Le libellé du poste est
 												obligatoire.</div>
 										</div>
@@ -221,7 +233,8 @@
 											<label class="float-right" for="iban">IBAN</label>
 										</div>
 										<div class="col-6">
-											<input type="text" class="form-control" id="iban" required>
+											<input type="text" class="form-control" name="iban"
+												value="<%=collab.getIban()%>" required>
 											<div class="invalid-feedback">Le numéro IBAN est
 												obligatoire.</div>
 										</div>
@@ -231,7 +244,8 @@
 											<label class="float-right" for="bic">BIC</label>
 										</div>
 										<div class="col-6">
-											<input type="text" class="form-control" id="bic" required>
+											<input type="text" class="form-control" name="bic"
+												value="<%=collab.getBic()%>" required>
 											<div class="invalid-feedback">Le numéro BIC est
 												obligatoire.</div>
 										</div>

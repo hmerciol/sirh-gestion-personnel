@@ -30,6 +30,8 @@ public class Collaborateur {
 	@ManyToOne
 	private Departement departement;
 	private String telephone;
+	private String iban;
+	private String bic;
 
 	/**
 	 * 
@@ -65,6 +67,8 @@ public class Collaborateur {
 		intitulePoste = "non renseigné";
 		departement = Constantes.DEPART_SERVICE.getDepByKey(0);
 		telephone = "non renseigné";
+		iban = "non renseigné";
+		bic = "non renseigné";
 	}
 
 	/**
@@ -328,6 +332,38 @@ public class Collaborateur {
 	 */
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	/**
+	 * Getter for the iban
+	 * @return the iban
+	 */
+	public String getIban() {
+		return iban;
+	}
+
+	/**
+	 * Setter for the iban
+	 * @param iban the iban to set
+	 */
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	/**
+	 * Getter for the bic
+	 * @return the bic
+	 */
+	public String getBic() {
+		return bic;
+	}
+
+	/**
+	 * Setter for the bic
+	 * @param bic the bic to set
+	 */
+	public void setBic(String bic) {
+		this.bic = bic;
 	}
 
 }
